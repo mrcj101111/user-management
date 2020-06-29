@@ -1,6 +1,8 @@
 import React from "react";
 import { getUsers } from '../../store/actions';
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBolt, faTachometerAlt, faChartArea, faHome } from "@fortawesome/free-solid-svg-icons";
 
 class PersonList extends React.Component {
   componentDidMount() {
@@ -23,9 +25,11 @@ class PersonList extends React.Component {
           {users.map(user =>
             <div className="col-lg-3 col-md-4 user-layout__col" key={user.id}>
               <div className="user-layout__col--inner">
-                <img src={'https://i.pravatar.cc/100?img=' + user.id}></img>
+                <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
                 <p className="font-weight-bold">{user.name}</p>
-                </div>
+                <p>({user.username})</p>
+                <FontAwesomeIcon icon={faChartArea} size="lg" />
+              </div>
             </div>
           )}
         </div>
