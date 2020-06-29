@@ -1,0 +1,18 @@
+/* This application uses BEM methodology for css naming 
+For more information, please visit http://getbem.com/ */
+
+h1 {
+    text-align: center;
+    padding: 30px;
+}
+
+.user-layout__col {
+    padding: 0;
+}
+
+.inner {
+    border: 1px solid grey;
+    border-radius: 2px;
+    margin: 5px;
+    height: 200px;
+}
