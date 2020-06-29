@@ -2,7 +2,7 @@ import React from "react";
 import { getUsers } from '../../store/actions';
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt, faTachometerAlt, faChartArea, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 class PersonList extends React.Component {
   componentDidMount() {
@@ -27,8 +27,10 @@ class PersonList extends React.Component {
               <div className="user-layout__col--inner">
                 <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
                 <p className="font-weight-bold">{user.name}</p>
-                <p>({user.username})</p>
-                <FontAwesomeIcon icon={faChartArea} size="lg" />
+                <p><small>({user.username})</small></p>
+                <FontAwesomeIcon className="search-icon" icon={faEye} />
+                <FontAwesomeIcon className="search-icon" icon={faPencilAlt} />
+                <FontAwesomeIcon className="search-icon" icon={faTrashAlt} />
               </div>
             </div>
           )}
