@@ -3,7 +3,8 @@ import * as actionTypes from './actions';
 const initialState = {
     users: [],
     loading: false,
-    error: null
+    error: null,
+    isModalOpen: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload.error
             };
+            case actionTypes.IS_MODAL_OPEN:
+                return {
+                    ...state,
+                    isModalOpen: !state.isModalOpen
+                }
         default:
             return state;
     }

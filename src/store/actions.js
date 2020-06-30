@@ -6,6 +6,7 @@ export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER';
+export const IS_MODAL_OPEN = 'IS_MODAL_OPEN';
 
 
 export const getUsersBegin = () => ({
@@ -22,6 +23,9 @@ export const getUsersFailure = error => ({
     payload: { error }
 });
 
+export const isModalOpen = () => ({
+    type: IS_MODAL_OPEN,
+});
 
 export const getUsers = () => {
     return dispatch => {
@@ -32,5 +36,11 @@ export const getUsers = () => {
                 dispatch(getUsersSuccess(data))
             })
             .catch(err => dispatch(getUsersFailure(err)))
+    }
+}
+
+export const toggleModal = () => {
+    return dispatch => {
+        dispatch(isModalOpen());
     }
 }
