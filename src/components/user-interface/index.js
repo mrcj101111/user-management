@@ -1,9 +1,9 @@
 import React from "react";
-import { getUsers, toggleModal } from '../../store/actions';
+import { getUsers, isModalOpen, toggleModal } from '../../store/actions';
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import Example from '../modal/UserViewModal';
+import UserViewModal from '../modal/UserViewModal';
 
 class PersonList extends React.Component {
   componentDidMount() {
@@ -29,14 +29,14 @@ class PersonList extends React.Component {
                 <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
                 <p className="font-weight-bold">{user.name}</p>
                 <p><small>({user.username})</small></p>
-                <FontAwesomeIcon className="search-icon" icon={faEye} onClick={() => this.props.dispatch(toggleModal())} />
+                <FontAwesomeIcon className="search-icon" icon={faEye} onClick={() => this.props.dispatch(isModalOpen(), this.props.dispatch(toggleModal(user)))} />
                 <FontAwesomeIcon className="search-icon" icon={faPencilAlt} />
                 <FontAwesomeIcon className="search-icon" icon={faTrashAlt} />
               </div>
             </div>
           )}
         </div>
-        <Example {...this.props} />
+        <UserViewModal {...this.props} />
       </div>
     );
   }
@@ -46,7 +46,8 @@ const mapStateToProps = state => ({
   users: state.users,
   loading: state.loading,
   error: state.error,
-  isModalOpen: state.isModalOpen
+  isModalOpen: state.isModalOpen,
+  activeUserInfo: state.activeUserInfo,
 });
 
 export default connect(mapStateToProps)(PersonList);

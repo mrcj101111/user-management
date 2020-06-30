@@ -4,6 +4,7 @@ const initialState = {
     users: [],
     loading: false,
     error: null,
+    activeUserInfo: {},
     isModalOpen: false,
 };
 
@@ -28,10 +29,16 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload.error
             };
-            case actionTypes.IS_MODAL_OPEN:
+        case actionTypes.IS_MODAL_OPEN:
+            return {
+                ...state,
+                isModalOpen: !state.isModalOpen,
+                
+            }
+            case actionTypes.UPDATE_ACTIVE_USER:
                 return {
                     ...state,
-                    isModalOpen: !state.isModalOpen
+                    activeUserInfo: action.payload.activeUser,
                 }
         default:
             return state;
