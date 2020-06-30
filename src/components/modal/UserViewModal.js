@@ -1,15 +1,15 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { isModalOpen } from '../../store/actions';
+import { isViewModalOpen } from '../../store/actions';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Example(props) {
-    const handleClose = () => props.dispatch(isModalOpen());
+function UserViewModal(props) {
+    const handleClose = () => props.dispatch(isViewModalOpen());
     let lastId = 0;
 
     return (
         <>
-            <Modal show={props.isModalOpen} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal show={props.isViewModalOpen} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>{props.activeUserInfo.name}</Modal.Title>
                 </Modal.Header>
@@ -21,7 +21,7 @@ function Example(props) {
                                     {data[0] !== 'id' &&
                                         <>
                                             <div className="col-3">
-                                                <p><strong>{data[0] + ':'}</strong></p>
+                                                <p className="text-capitalize"><strong>{data[0] + ':'}</strong></p>
                                             </div>
                                             <div className="col">
                                                 <p>{data[1]}</p>
@@ -38,4 +38,4 @@ function Example(props) {
     );
 }
 
-export default Example;
+export default UserViewModal;

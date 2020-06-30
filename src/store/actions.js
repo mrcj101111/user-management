@@ -3,11 +3,14 @@ import axios from 'axios';
 export const GET_USERS_BEGIN = 'GET_USERS_BEGIN';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
-
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER';
-export const IS_MODAL_OPEN = 'IS_MODAL_OPEN';
+export const UPDATE_USER = 'UPDATE_USER';
+
 export const UPDATE_ACTIVE_USER = 'UPDATE_ACTIVE_USER';
+
+export const IS_VIEW_MODAL_OPEN = 'IS_VIEW_MODAL_OPEN';
+export const IS_EDIT_MODAL_OPEN = 'IS_EDIT_MODAL_OPEN';
 
 export const getUsersBegin = () => ({
     type: GET_USERS_BEGIN
@@ -28,9 +31,23 @@ export const getUsersFailure = error => ({
     payload: { error }
 });
 
-export const isModalOpen = () => ({
-    type: IS_MODAL_OPEN,
+export const deleteUser = (id) => ({
+    type: DELETE_USER,
+    payload: { id }
+})
+
+export const isViewModalOpen = () => ({
+    type: IS_VIEW_MODAL_OPEN,
 });
+
+export const isEditModalOpen = () => ({
+    type: IS_EDIT_MODAL_OPEN,
+})
+
+export const updatedUser = (updatedUser) => ({
+    type: UPDATE_USER,
+    payload: { updatedUser }
+})
 
 export const getUsers = () => {
     return dispatch => {
@@ -45,14 +62,14 @@ export const getUsers = () => {
 }
 
 export const toggleModal = (activeUser) => {
-    const activeUserObject = { };
+    const activeUserObject = {};
 
     //Take data from json object and flatten in order for simple implementation in components.
     Object.entries(activeUser).map(([key, value]) => {
         if (typeof value === "object") {
-            Object.entries(value).map(([key, value]) => {
+            return Object.entries(value).map(([key, value]) => {
                 if (typeof value === "object") {
-                    Object.entries(value).map(([key, item]) => {
+                    return Object.entries(value).map(([key, item]) => {
                         return (
                             activeUserObject[key] = item
                         )
@@ -74,5 +91,11 @@ export const toggleModal = (activeUser) => {
 
     return dispatch => {
         dispatch(updateActiveUser(activeUserObject));
+    }
+}
+
+export const updateUser = (data) => {
+    return dispatch => {
+        dispatch(updatedUser(data))
     }
 }

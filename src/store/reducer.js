@@ -5,7 +5,8 @@ const initialState = {
     loading: false,
     error: null,
     activeUserInfo: {},
-    isModalOpen: false,
+    isViewModalOpen: false,
+    isEditModalOpen: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,17 +30,33 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload.error
             };
-        case actionTypes.IS_MODAL_OPEN:
+        case actionTypes.DELETE_USER:
             return {
                 ...state,
-                isModalOpen: !state.isModalOpen,
-                
+                users: state.users.filter(person => person.id !== action.payload.id)
             }
-            case actionTypes.UPDATE_ACTIVE_USER:
-                return {
-                    ...state,
-                    activeUserInfo: action.payload.activeUser,
-                }
+        case actionTypes.IS_VIEW_MODAL_OPEN:
+            return {
+                ...state,
+                isViewModalOpen: !state.isViewModalOpen,
+            }
+        case actionTypes.IS_EDIT_MODAL_OPEN:
+            return {
+                ...state,
+                isEditModalOpen: !state.isEditModalOpen,
+            }
+        case actionTypes.UPDATE_ACTIVE_USER:
+            return {
+                ...state,
+                activeUserInfo: action.payload.activeUser,
+            }
+        case actionTypes.UPDATE_USER:
+            return {
+                ...state,
+                users: state.users.map(person => {
+                    return person.id === action.payload.updatedUser.id ? { ...person, ...action.payload.updatedUser } : person
+                })
+            }
         default:
             return state;
     }
