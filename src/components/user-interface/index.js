@@ -20,7 +20,7 @@ class PersonList extends React.Component {
   }
 
   render() {
-    const { error, loading, users, filteredUsers } = this.props;
+    const { error, loading, filteredUsers } = this.props;
     if (error) {
       return <div>Error! {error.message}</div>;
     }
@@ -36,7 +36,7 @@ class PersonList extends React.Component {
     return (
       <div className="container user-layout">
         <Form inline className="pr-1 mb-3">
-          <FormControl type="text" onChange={onChangeSearchFilter} placeholder="Search" className="ml-auto mr-sm-2" />
+          <FormControl type="text" onChange={onChangeSearchFilter} placeholder="Search" className="w-50 m-auto" />
         </Form>
         <div className="row">
           {filteredUsers.map(user =>
@@ -45,9 +45,9 @@ class PersonList extends React.Component {
                 <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
                 <p className="font-weight-bold">{user.name}</p>
                 <p><small>({user.username})</small></p>
-                <FontAwesomeIcon className="search-icon" icon={faEye} onClick={() => this.props.dispatch(isViewModalOpen(), this.props.dispatch(toggleModal(user)))} />
-                <FontAwesomeIcon className="search-icon" icon={faPencilAlt} onClick={() => this.props.dispatch(isEditModalOpen(), this.props.dispatch(toggleModal(user)))} />
-                <FontAwesomeIcon className="search-icon" icon={faTrashAlt} onClick={() => this.props.dispatch(deleteUser(user.id))} />
+                <FontAwesomeIcon className="search-icon view" icon={faEye} onClick={() => this.props.dispatch(isViewModalOpen(), this.props.dispatch(toggleModal(user)))} />
+                <FontAwesomeIcon className="search-icon edit" icon={faPencilAlt} onClick={() => this.props.dispatch(isEditModalOpen(), this.props.dispatch(toggleModal(user)))} />
+                <FontAwesomeIcon className="search-icon delete" icon={faTrashAlt} onClick={() => this.props.dispatch(deleteUser(user.id))} />
               </div>
             </div>
           )}

@@ -47,7 +47,7 @@ function UserEditModal(props) {
                                                 <Form.Label className="text-capitalize" column md="3"><strong>{data[0] + ':'}</strong></Form.Label>
                                                 <Col md="9">
                                                     <Form.Control name={data[0]} type={formInputType(data[0])} placeholder={data[1]} onChange={onChange} />
-                                                    {data[0] == 'email' && <small className="text-danger"> {Object.keys(props.formErrors).length === 0 ? '' : props.formErrors}</small>}
+                                                    {data[0] === 'email' && <small className="text-danger"> {Object.keys(props.formErrors).length === 0 ? '' : props.formErrors}</small>}
                                                 </Col>
                                             </Form.Group>
                                         }

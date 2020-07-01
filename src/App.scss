@@ -32,6 +32,15 @@ h1 {
             cursor: pointer;
             transform: scale(1.2);
             transition: 0.2s ease;
+            &.delete {
+                color: red;
+            }
+            &.view {
+                color: rgb(26, 26, 134);
+            }
+            &.edit {
+                color: rgb(100, 36, 36);
+            }
         }
     }
 }

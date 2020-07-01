@@ -121,7 +121,7 @@ export const searchUsers = (data) => {
 
 export const formError = (data) => {
     const error = {};
-    const validEmailRegex = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    const validEmailRegex = (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     
     return dispatch => {
         return dispatch(addFormErrors(validEmailRegex.test(data.target.value) ? error[data.target.name] = '' : error[data.target.name] = 'Please provide a vaid email'));

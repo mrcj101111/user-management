@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_USER:
             return {
                 ...state,
-                users: state.users.filter(person => person.id !== action.payload.id)
+                filteredUsers: state.filteredUsers.filter(person => person.id !== action.payload.id)
             }
         case actionTypes.IS_VIEW_MODAL_OPEN:
             return {
@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_USER:
             return {
                 ...state,
-                users: state.users.map(person => {
+                filteredUsers: state.filteredUsers.map(person => {
                     return person.id === action.payload.updatedUser.id ? { ...person, ...action.payload.updatedUser } : person
                 })
             }
