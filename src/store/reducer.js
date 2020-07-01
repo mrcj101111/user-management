@@ -7,6 +7,8 @@ const initialState = {
     activeUserInfo: {},
     isViewModalOpen: false,
     isEditModalOpen: false,
+    formErrors: {},
+    filteredUsers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +23,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: action.payload.users,
+                filteredUsers: action.payload.users,
                 loading: false,
             }
         case actionTypes.GET_USERS_FAILURE:
@@ -56,6 +59,19 @@ const reducer = (state = initialState, action) => {
                 users: state.users.map(person => {
                     return person.id === action.payload.updatedUser.id ? { ...person, ...action.payload.updatedUser } : person
                 })
+            }
+        case actionTypes.SEARCH_USERS:
+            return {
+                ...state,
+                filteredUsers: state.users.filter(value =>
+                    (value.name && value.name.toLowerCase().includes(action.payload.data)) ||
+                    (value.username && value.username.toLowerCase().includes(action.payload.data))
+                )
+            }
+        case actionTypes.ADD_FORM_ERRORS:
+            return {
+                ...state,
+                formErrors: action.payload.error
             }
         default:
             return state;

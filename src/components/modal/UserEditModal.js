@@ -1,9 +1,10 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { isEditModalOpen, updateUser } from '../../store/actions';
+import { isEditModalOpen, updateUser, formError } from '../../store/actions';
 import { Form, Col, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import "bootstrap/dist/css/bootstrap.min.css";
+import formInputType from '../shared/FormInputType';
 
 function UserEditModal(props) {
     const handleClose = () => props.dispatch(isEditModalOpen());
@@ -11,13 +12,22 @@ function UserEditModal(props) {
     let updatedUserObject = {};
 
     const onChange = (e) => {
-        updatedUserObject['id'] = props.activeUserInfo.id
-        updatedUserObject[e.target.name] = e.target.value
-      }
+        updatedUserObject['id'] = props.activeUserInfo.id;
+        updatedUserObject[e.target.name] = e.target.value;
+
+        if(e.target.name === 'email') {
+            props.dispatch(formError(e))
+        } 
+        
+    }
 
     const submitForm = () => {
-        props.dispatch(updateUser(updatedUserObject))
-        handleClose();
+        if (Object.keys(props.formErrors).length > 0) {
+            return
+        } else {
+            props.dispatch(updateUser(updatedUserObject))
+            handleClose();
+        }
     }
 
     return (
@@ -33,10 +43,11 @@ function UserEditModal(props) {
                                 return (
                                     <div key={lastId++}>
                                         {data[0] !== 'id' &&
-                                            <Form.Group as={Row} controlId="formBasicEmail">
+                                            <Form.Group as={Row} controlId="formInput">
                                                 <Form.Label className="text-capitalize" column md="3"><strong>{data[0] + ':'}</strong></Form.Label>
                                                 <Col md="9">
-                                                    <Form.Control name={data[0]} type="text" placeholder={data[1]} onChange={onChange} />
+                                                    <Form.Control name={data[0]} type={formInputType(data[0])} placeholder={data[1]} onChange={onChange} />
+                                                    {data[0] == 'email' && <small className="text-danger"> {Object.keys(props.formErrors).length === 0 ? '' : props.formErrors}</small>}
                                                 </Col>
                                             </Form.Group>
                                         }

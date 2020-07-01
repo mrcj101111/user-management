@@ -6,11 +6,14 @@ export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const SEARCH_USERS = 'SEARCH_USERS;'
 
 export const UPDATE_ACTIVE_USER = 'UPDATE_ACTIVE_USER';
 
 export const IS_VIEW_MODAL_OPEN = 'IS_VIEW_MODAL_OPEN';
 export const IS_EDIT_MODAL_OPEN = 'IS_EDIT_MODAL_OPEN';
+
+export const ADD_FORM_ERRORS = 'ADD_FORM_ERRORS';
 
 export const getUsersBegin = () => ({
     type: GET_USERS_BEGIN
@@ -47,6 +50,16 @@ export const isEditModalOpen = () => ({
 export const updatedUser = (updatedUser) => ({
     type: UPDATE_USER,
     payload: { updatedUser }
+})
+
+export const searchAllUsers = (data) => ({
+    type: SEARCH_USERS,
+    payload: { data }
+})
+
+export const addFormErrors = (error) => ({
+    type: ADD_FORM_ERRORS,
+    payload: { error }
 })
 
 export const getUsers = () => {
@@ -97,5 +110,20 @@ export const toggleModal = (activeUser) => {
 export const updateUser = (data) => {
     return dispatch => {
         dispatch(updatedUser(data))
+    }
+}
+
+export const searchUsers = (data) => {
+    return dispatch => {
+        dispatch(searchAllUsers(data.target.value))
+    }
+}
+
+export const formError = (data) => {
+    const error = {};
+    const validEmailRegex = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    
+    return dispatch => {
+        return dispatch(addFormErrors(validEmailRegex.test(data.target.value) ? error[data.target.name] = '' : error[data.target.name] = 'Please provide a vaid email'));
     }
 }

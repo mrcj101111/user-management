@@ -4,13 +4,15 @@ import {
   isViewModalOpen,
   toggleModal,
   deleteUser,
-  isEditModalOpen
+  isEditModalOpen,
+  searchUsers
 } from '../../store/actions';
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import UserViewModal from '../modal/UserViewModal';
 import UserEditModal from '../modal/UserEditModal';
+import { Form, FormControl } from "react-bootstrap";
 
 class PersonList extends React.Component {
   componentDidMount() {
@@ -18,7 +20,7 @@ class PersonList extends React.Component {
   }
 
   render() {
-    const { error, loading, users } = this.props;
+    const { error, loading, users, filteredUsers } = this.props;
     if (error) {
       return <div>Error! {error.message}</div>;
     }
@@ -27,10 +29,17 @@ class PersonList extends React.Component {
       return <div>Loading...</div>;
     }
 
+    const onChangeSearchFilter = (e) => {
+       this.props.dispatch(searchUsers(e))
+    }
+
     return (
       <div className="container user-layout">
+        <Form inline className="pr-1 mb-3">
+          <FormControl type="text" onChange={onChangeSearchFilter} placeholder="Search" className="ml-auto mr-sm-2" />
+        </Form>
         <div className="row">
-          {users.map(user =>
+          {filteredUsers.map(user =>
             <div className="col-lg-3 col-md-4 user-layout__col" key={user.id}>
               <div className="user-layout__col--inner">
                 <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
@@ -57,6 +66,8 @@ const mapStateToProps = state => ({
   isViewModalOpen: state.isViewModalOpen,
   isEditModalOpen: state.isEditModalOpen,
   activeUserInfo: state.activeUserInfo,
+  formErrors: state.formErrors,
+  filteredUsers: state.filteredUsers
 });
 
 export default connect(mapStateToProps)(PersonList);
