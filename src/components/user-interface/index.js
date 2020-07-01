@@ -67,7 +67,8 @@ const mapStateToProps = state => ({
   isEditModalOpen: state.isEditModalOpen,
   activeUserInfo: state.activeUserInfo,
   formErrors: state.formErrors,
-  filteredUsers: state.filteredUsers
+  filteredUsers: state.filteredUsers,
+  toaster: state.toaster
 });
 
 export default connect(mapStateToProps)(PersonList);

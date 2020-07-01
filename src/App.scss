@@ -8,7 +8,6 @@ h1 {
 
 .user-layout__col {
     padding: 0;
-
 }
 
 .user-layout__col--inner {
@@ -42,5 +41,18 @@ h1 {
                 color: rgb(100, 36, 36);
             }
         }
+    }
+}
+
+.toast {
+    width: 300px;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 1.1rem;
+    .toast-body {
+        background: #28a745;
     }
 }

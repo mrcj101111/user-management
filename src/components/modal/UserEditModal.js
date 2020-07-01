@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { isEditModalOpen, updateUser, formError } from '../../store/actions';
 import { Form, Col, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import "bootstrap/dist/css/bootstrap.min.css";
 import formInputType from '../shared/FormInputType';
+import Toast from 'react-bootstrap/Toast'
 
 function UserEditModal(props) {
     const handleClose = () => props.dispatch(isEditModalOpen());
     let lastId = 0;
     let updatedUserObject = {};
     const error = {};
+    const [show, setShow] = useState(false);
 
     const onChange = (e) => {
         const validEmailRegex = (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         updatedUserObject['id'] = props.activeUserInfo.id;
         updatedUserObject[e.target.name] = e.target.value;
+        error['email'] = '';
 
         if (e.target.name === 'email' && !validEmailRegex.test(e.target.value)) {
             error[e.target.name] = 'Please provide a valid email';
@@ -31,6 +34,7 @@ function UserEditModal(props) {
         } else {
             props.dispatch(updateUser(updatedUserObject))
             handleClose();
+            setShow(true);
         }
     }
 
@@ -58,13 +62,16 @@ function UserEditModal(props) {
                                     </div>
                                 )
                             })}
-                            <Button onClick={submitForm}>
+                            <Button onClick={submitForm} >
                                 Done
                             </Button>
                         </Form>
                     </div>
                 </Modal.Body>
             </Modal>
+            <Toast onClose={() => setShow(false)} show={show} autohide>
+                <Toast.Body>User successfully updated!</Toast.Body>
+            </Toast>
         </>
     );
 }
