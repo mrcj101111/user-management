@@ -10,19 +10,23 @@ function UserEditModal(props) {
     const handleClose = () => props.dispatch(isEditModalOpen());
     let lastId = 0;
     let updatedUserObject = {};
+    const error = {};
 
     const onChange = (e) => {
+        const validEmailRegex = (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         updatedUserObject['id'] = props.activeUserInfo.id;
         updatedUserObject[e.target.name] = e.target.value;
 
-        if (e.target.name === 'email') {
-            props.dispatch(formError(e))
+        if (e.target.name === 'email' && !validEmailRegex.test(e.target.value)) {
+            error[e.target.name] = 'Please provide a valid email';
+        } else if (e.target.name === 'email') {
+            error[e.target.name] = '';
         }
-
     }
 
-    const submitForm = () => {
-        if (Object.keys(props.formErrors).length > 0) {
+    const submitForm = (e) => {
+        props.dispatch(formError(error.email));
+        if (Object.values(error)[0].length > 0) {
             return
         } else {
             props.dispatch(updateUser(updatedUserObject))

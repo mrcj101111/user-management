@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { isViewModalOpen } from '../../store/actions';
+import { isViewModalOpen, toggleModal } from '../../store/actions';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function UserViewModal(props) {
-    const handleClose = () => props.dispatch(isViewModalOpen());
+    const handleClose = () => props.dispatch(isViewModalOpen(), props.dispatch(toggleModal({})));
     let lastId = 0;
 
     return (
