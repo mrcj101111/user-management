@@ -15,10 +15,10 @@ function UserEditModal(props) {
         updatedUserObject['id'] = props.activeUserInfo.id;
         updatedUserObject[e.target.name] = e.target.value;
 
-        if(e.target.name === 'email') {
+        if (e.target.name === 'email') {
             props.dispatch(formError(e))
-        } 
-        
+        }
+
     }
 
     const submitForm = () => {

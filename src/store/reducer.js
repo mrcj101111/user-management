@@ -65,7 +65,9 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 filteredUsers: state.users.filter(value =>
                     (value.name && value.name.toLowerCase().includes(action.payload.data)) ||
-                    (value.username && value.username.toLowerCase().includes(action.payload.data))
+                    (value.username && value.username.toLowerCase().includes(action.payload.data)) ||
+                    (value.email && value.email.toLowerCase().includes(action.payload.data)) ||
+                    (value.company.name && value.company.name.toLowerCase().includes(action.payload.data))
                 )
             }
         case actionTypes.ADD_FORM_ERRORS:
