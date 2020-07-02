@@ -14,6 +14,7 @@ function UserEditModal(props) {
     const error = {};
     const [show, setShow] = useState(false);
 
+    // Handle change of each input after user presses a button.
     const onChange = (e) => {
         const validEmailRegex = (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         updatedUserObject['id'] = props.activeUserInfo.id;
@@ -27,10 +28,16 @@ function UserEditModal(props) {
         }
     }
 
-    const submitForm = (e) => {
+    const submitForm = () => {
+        //Send errors to state to use in following steps.
         props.dispatch(formError(error.email));
-        if (Object.values(error)[0].length > 0) {
+        //If nothing is entered
+        if (Object.values(error)[0] === undefined && Object.values(updatedUserObject)[0] === undefined) {
+            handleClose();
+        //If error is present
+        } else if (Object.values(error)[0].length > 0) {
             return
+        //If form is valid
         } else {
             props.dispatch(updateUser(updatedUserObject))
             handleClose();

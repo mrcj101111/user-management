@@ -47,6 +47,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isEditModalOpen: !state.isEditModalOpen,
+                formErrors: (state.formErrors && state.formErrors.length > 0) ? state.formErrors : state.formErrors = {}
             }
         case actionTypes.UPDATE_ACTIVE_USER:
             return {
