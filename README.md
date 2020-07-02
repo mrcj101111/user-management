@@ -1,7 +1,9 @@
+<p align="center">
 <img src="https://img.shields.io/github/repo-size/mrcj101111/user-management" alt="Repo size">
 <img src="https://img.shields.io/github/issues/mrcj101111/user-management" alt="Repo size">
 <img src="https://img.shields.io/github/languages/top/mrcj101111/user-management" alt="Repo size">
 <img src="https://img.shields.io/github/languages/count/mrcj101111/user-management" alt="Repo size">
+</p>
 
 # User Management
 Manage users using React and Redux
