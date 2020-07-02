@@ -30,7 +30,7 @@ class PersonList extends React.Component {
     }
 
     const onChangeSearchFilter = (e) => {
-       this.props.dispatch(searchUsers(e))
+      this.props.dispatch(searchUsers(e))
     }
 
     return (
@@ -45,6 +45,7 @@ class PersonList extends React.Component {
                 <img src={'https://i.pravatar.cc/100?img=' + user.id} alt={user.name + ' profile picture'}></img>
                 <p className="font-weight-bold">{user.name}</p>
                 <p><small>({user.username})</small></p>
+                {/* Pass active user to actions to create active user object for view and edit */}
                 <FontAwesomeIcon className="search-icon view" icon={faEye} onClick={() => this.props.dispatch(isViewModalOpen(), this.props.dispatch(toggleModal(user)))} />
                 <FontAwesomeIcon className="search-icon edit" icon={faPencilAlt} onClick={() => this.props.dispatch(isEditModalOpen(), this.props.dispatch(toggleModal(user)))} />
                 <FontAwesomeIcon className="search-icon delete" icon={faTrashAlt} onClick={() => this.props.dispatch(deleteUser(user.id))} />

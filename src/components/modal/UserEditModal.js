@@ -69,6 +69,7 @@ function UserEditModal(props) {
                     </div>
                 </Modal.Body>
             </Modal>
+            {/* Show toast when user clicks done and edit was successful */}
             <Toast onClose={() => setShow(false)} show={show} autohide>
                 <Toast.Body>User successfully updated!</Toast.Body>
             </Toast>

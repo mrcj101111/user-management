@@ -62,6 +62,7 @@ export const addFormErrors = (error) => ({
     payload: { error }
 })
 
+//Get users from json endpoint
 export const getUsers = () => {
     return dispatch => {
         dispatch(getUsersBegin());
